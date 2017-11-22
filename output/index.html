@@ -14,25 +14,85 @@
         <header id="banner" class="body">
                 <h1><a href="/">Beeeta Blog </a></h1>
                 <nav><ul>
-                    <li><a href="/category/misc.html">misc</a></li>
+                    <li><a href="/category/python.html">python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/test.html">test</a></h1>
+                    <h1 class="entry-title"><a href="/pythonshi-yong-lei-he-han-shu-chuang-jian-die-dai-qi-de-ji-chong-fang-fa.html">python使用类和函数创建迭代器的几种方法</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2099-11-20T00:00:00+01:00">
-                Published: 五 20 十一月 2099
+        <abbr class="published" title="2017-11-22T00:00:00+01:00">
+                Published: 周三 22 十一月 2017
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/betalun.html">betalun</a>
         </address>
-<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>In <a href="/category/python.html">python</a>.</p>
 
-</footer><!-- /.post-info --><h1>test</h1>
-<p>content empty</p>                </article>
+</footer><!-- /.post-info --><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">将类和函数改造为迭代器的方法</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># 1.实现了__iter__,__next__方法的类</span>
+<span class="k">class</span> <span class="nc">Iter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span><span class="mi">4</span> <span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">rs</span>
+
+
+<span class="c1"># 2.使用原生的迭代器</span>
+<span class="k">def</span> <span class="nf">iterer</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="k">yield</span>  <span class="n">i</span>
+
+<span class="c1"># 3.将闭包函数改造为迭代器iter(为什么要是闭包函数，因为每次调用有状态变化)</span>
+<span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">a</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+            <span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">inner</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">outer</span><span class="p">(),</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="c1"># Test</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">iter1</span> <span class="o">=</span> <span class="n">Iter</span><span class="p">()</span>
+    <span class="n">iter2</span> <span class="o">=</span> <span class="n">iterer</span><span class="p">()</span>
+    <span class="n">iter3</span> <span class="o">=</span> <span class="n">out</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iter1</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter1 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;---------&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">iter2</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter2 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;---------&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">iter3</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter3 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</pre></div>
+
+
+<h2>三种方式执行的结果相同：</h2>
+<p><img alt="执行结果图" src="/images/result1.png"></p>                </article>
             </aside><!-- /#featured -->
         <section id="extras" class="body">
         </section><!-- /#extras -->
