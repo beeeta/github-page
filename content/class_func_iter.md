@@ -46,11 +46,18 @@ def outer():
 
 out = iter(outer(),None)
 
+# 4.自定义迭代器，在__iter__中返回生成器
+class Iter2:
+    def __iter__(self):
+        return iterer()
+
 # Test
 if __name__ == '__main__':
     iter1 = Iter()
     iter2 = iterer()
     iter3 = out
+	iter4 = Iter2()
+	
     for i in iter1:
         print('iter1 print:{}'.format(i))
 
@@ -61,9 +68,13 @@ if __name__ == '__main__':
     print('---------')
     for k in iter3:
         print('iter3 print:{}'.format(k))
+		
+	print('--------')
+    for m in iter4:
+        print('iter4 print:{}'.format(m))
 
 ```
 
-三种方式执行的结果相同：
+四种方式执行的结果相同：
 ---
-![执行结果图]({filename}/images/result1.png)
+![执行结果图]({filename}/images/result2.png)
