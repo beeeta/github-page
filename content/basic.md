@@ -1,4 +1,4 @@
-Title: python read api doc note 1
+Title: python api阅读笔记1
 Date: 2017-11-23
 Category: python
 
@@ -26,4 +26,42 @@ dict -->   [(),(),()]
 	
 [(),(),()]  --> dict
     {i:j for i,j in [(),(),()]}
+```
+
+---
+
+### python中的时间
+
+#### datetime
+- 创建time对象，date对象和datetime对象
+```
+datetime.time(16,26,56)
+datetime.date(2017,20,20)
+datetime.datetime(2017,20,20)
+```
+- 当前时间
+```
+datetime.time.now()
+datetime.date.today()
+datetime.datetime.now()
+```
+- 时间单位的转化
+```
+datetime.date <- datetime.datetime.date()
+datetime.time <- datetime.datetime.time()
+datetime.datetime <- [datetime.datetime](object).combine(datetime.date(obj),datetime.time(obj))
+```
+- 时间的运算和平移
+```
+datetime2 = datetime +_ timedelta
+timedelta = datetime _ datetime
+```
+- 字符时间的创建与打印  
+创建：
+```
+datetime.datetime.strptime('2017-09-09','%Y-%m-%d')
+```
+打印：
+```
+[datetime.datetime](object).strftime()
 ```
