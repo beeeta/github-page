@@ -116,6 +116,39 @@ timedelta = datetime _ datetime
 <p>打印：</p>
 <div class="highlight"><pre><span></span>[datetime.datetime](object).strftime()
 </pre></div>
+
+
+<h3>Collections</h3>
+<ul>
+<li>
+<p>ChainMap<br>
+其结构类似于作用域链，<code>pylookup = ChainMap(locals(), globals(), vars(builtins))</code>
+对象属性和方法：<code>maps -&gt; [{},{},{}];new_child(m=None)-&gt;继承原有作用域创建新的ChainMap结构;parents-&gt;maps[1:]</code>;</p>
+</li>
+<li>
+<p>Counter
+<code>Counter([iterable-or-mapping])</code>
+用于数量统计和对相同key的value做加法运算
+<code>elements()-&gt;[i*counter[i](这里表示个数) for i in counter]</code></p>
+</li>
+<li>
+<p>deque
+双向队列，线程安全</p>
+</li>
+<li>
+<p>defaultdict</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>a = defaultdict(list)
+b = defaultdict(set)
+c = defaultdict(int)
+</pre></div>
+
+
+<ul>
+<li>namedtuple （构建简单的属性对象）
+a = namedtuple('objname',['a','b','c'])</li>
+</ul>
     </div><!-- /.entry-content -->
 
   </article>

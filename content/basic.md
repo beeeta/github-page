@@ -65,3 +65,27 @@ datetime.datetime.strptime('2017-09-09','%Y-%m-%d')
 ```
 [datetime.datetime](object).strftime()
 ```
+
+### Collections
+
+- ChainMap  
+其结构类似于作用域链，```pylookup = ChainMap(locals(), globals(), vars(builtins))```
+对象属性和方法：```maps -> [{},{},{}];new_child(m=None)->继承原有作用域创建新的ChainMap结构;parents->maps[1:]```;
+
+- Counter
+```Counter([iterable-or-mapping])```
+用于数量统计和对相同key的value做加法运算
+```elements()->[i*counter[i](这里表示个数) for i in counter]```
+
+- deque
+双向队列，线程安全
+
+- defaultdict
+```
+a = defaultdict(list)
+b = defaultdict(set)
+c = defaultdict(int)
+```
+
+- namedtuple （构建简单的属性对象）
+a = namedtuple('objname',['a','b','c'])
