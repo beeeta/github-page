@@ -15,6 +15,7 @@
                 <h1><a href="/">Beeeta Blog </a></h1>
                 <nav><ul>
                     <li><a href="/category/python.html">python</a></li>
+                    <li><a href="/category/python_web.html">python_web</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
@@ -109,6 +110,50 @@
                     <h1>Other articles</h1>
                     <hr />
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/sqlalchemybi-ji.html" rel="bookmark"
+                           title="Permalink to Sqlalchemy笔记">Sqlalchemy笔记</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-11-30T00:00:00+01:00">
+                Published: 周四 30 十一月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python_web.html">python_web</a>.</p>
+
+</footer><!-- /.post-info -->                <blockquote>
+<p>主要参考sqlalchemy官方文档</p>
+</blockquote>
+<h3>初始化过程</h3>
+<ul>
+<li>创建engine,Base,session
+分别对应的是数据库连接，对象映射，回话</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">scoped_session</span><span class="p">,</span> <span class="n">sessionmaker</span>
+
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span> <span class="c1"># orm metadata信息父类</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">SQLALCHEMY_DATABASE_URI</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">scoped_session</span><span class="p">(</span><span class="n">sessionmaker</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">autoflush</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">))</span>
+<span class="n">Base</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query_property</span><span class="p">()</span> <span class="c1">#对象绑定query方法</span>
+</pre></div>
+
+
+<ul>
+<li>初始化数据库表结构</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from …</span></pre></div>
+                <a class="readmore" href="/sqlalchemybi-ji.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

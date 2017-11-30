@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
         <meta charset="utf-8" />
-        <title>Beeeta Blog - misc</title>
+        <title>Sqlalchemy笔记</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -14,14 +14,19 @@
         <header id="banner" class="body">
                 <h1><a href="/">Beeeta Blog </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="/category/misc.html">misc</a></li>
                     <li><a href="/category/python.html">python</a></li>
+                    <li class="active"><a href="/category/python_web.html">python_web</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/sqlalchemybi-ji.html" rel="bookmark"
+           title="Permalink to Sqlalchemy笔记">Sqlalchemy笔记</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/sqlalchemybi-ji.html">Sqlalchemy笔记</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-11-30T00:00:00+01:00">
                 Published: 周四 30 十一月 2017
@@ -30,9 +35,9 @@
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/betalun.html">betalun</a>
         </address>
-<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>In <a href="/category/python_web.html">python_web</a>.</p>
 
-</footer><!-- /.post-info --><blockquote>
+</footer><!-- /.post-info -->      <blockquote>
 <p>主要参考sqlalchemy官方文档</p>
 </blockquote>
 <h3>初始化过程</h3>
@@ -176,8 +181,11 @@ session.query(User,stmt.c).filter(stmt.c.name = &#39;aa&#39;)
 <li>在关系中指定级联关系</li>
 </ul>
 <div class="highlight"><pre><span></span>relationship(&#39;Address&#39;, back_populates=&#39;users&#39;,cascade=&#39;all,delete&#39;)
-</pre></div>                </article>
-            </aside><!-- /#featured -->
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
         </section><!-- /#extras -->
 
