@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>monkey patch</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Beeeta Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/python.html">python</a></li>
+                    <li><a href="/category/python_web.html">python_web</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/monkey-patch.html" rel="bookmark"
+           title="Permalink to monkey patch">monkey patch</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-03T00:00:00+01:00">
+                Published: 日 03 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+
+</footer><!-- /.post-info -->      <h3>基础</h3>
+<blockquote>
+<p>python的一种编程技巧。之后引入的包可以改变之前引入包的方法，主要可用于对第三方包进行定制。例子可以参考<a href="https://github.com/reclosedev/requests-cache.git">requests-cache</a>和<a href="https://github.com/gevent/gevent.git">gevent</a>源码</p>
+</blockquote>
+<ul>
+<li>一个简单的例子</li>
+</ul>
+<p>test.py</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">test2</span>
+<span class="kn">import</span> <span class="nn">test3</span>
+
+<span class="n">test2</span><span class="o">.</span><span class="n">abc</span><span class="p">()</span>
+</pre></div>
+
+
+<p>test2.py</p>
+<div class="highlight"><pre><span></span>def abc():
+    print(&#39;test2 abc&#39;)
+</pre></div>
+
+
+<p>test3.py</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">test2</span>
+
+<span class="c1"># old_abc = test2.abc</span>
+
+<span class="n">test2</span><span class="o">.</span><span class="n">abc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;monkeyed abc&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>结果打印为：</p>
+<div class="highlight"><pre><span></span>monkeyed abc
+</pre></div>
+
+
+<ul>
+<li>深入一些的技巧<blockquote>
+<p>借助python的内省和魔法方法做的更pythonic</p>
+</blockquote>
+</li>
+</ul>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

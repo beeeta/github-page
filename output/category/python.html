@@ -21,7 +21,94 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/python-apiyue-du-bi-ji-1.html">python api阅读笔记1</a></h1>
+                    <h1 class="entry-title"><a href="/monkey-patch.html">monkey patch</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-03T00:00:00+01:00">
+                Published: 日 03 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+
+</footer><!-- /.post-info --><h3>基础</h3>
+<blockquote>
+<p>python的一种编程技巧。之后引入的包可以改变之前引入包的方法，主要可用于对第三方包进行定制。例子可以参考<a href="https://github.com/reclosedev/requests-cache.git">requests-cache</a>和<a href="https://github.com/gevent/gevent.git">gevent</a>源码</p>
+</blockquote>
+<ul>
+<li>一个简单的例子</li>
+</ul>
+<p>test.py</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">test2</span>
+<span class="kn">import</span> <span class="nn">test3</span>
+
+<span class="n">test2</span><span class="o">.</span><span class="n">abc</span><span class="p">()</span>
+</pre></div>
+
+
+<p>test2.py</p>
+<div class="highlight"><pre><span></span>def abc():
+    print(&#39;test2 abc&#39;)
+</pre></div>
+
+
+<p>test3.py</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">test2</span>
+
+<span class="c1"># old_abc = test2.abc</span>
+
+<span class="n">test2</span><span class="o">.</span><span class="n">abc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;monkeyed abc&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>结果打印为：</p>
+<div class="highlight"><pre><span></span>monkeyed abc
+</pre></div>
+
+
+<ul>
+<li>深入一些的技巧<blockquote>
+<p>借助python的内省和魔法方法做的更pythonic</p>
+</blockquote>
+</li>
+</ul>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/python-blog-yue-du-can-kao.html" rel="bookmark"
+                           title="Permalink to python blog 阅读参考">python blog 阅读参考</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-03T00:00:00+01:00">
+                Published: 日 03 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+
+</footer><!-- /.post-info -->                <h3>属性的访问</h3>
+<p><a href="http://www.cnblogs.com/xybaby/p/6270551.html">python属性查找 深入理解</a></p>
+                <a class="readmore" href="/python-blog-yue-du-can-kao.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/python-apiyue-du-bi-ji-1.html" rel="bookmark"
+                           title="Permalink to python api阅读笔记1">python api阅读笔记1</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-11-23T00:00:00+01:00">
                 Published: 四 23 十一月 2017
@@ -32,7 +119,7 @@
         </address>
 <p>In <a href="/category/python.html">python</a>.</p>
 
-</footer><!-- /.post-info --><h3>基本数据类型的转换</h3>
+</footer><!-- /.post-info -->                <h3>基本数据类型的转换</h3>
 <ul>
 <li>数值 --&gt; 字符串(将数值转为特定进制的字符串形式)  </li>
 </ul>
@@ -70,86 +157,10 @@ dict --&gt;   [(),(),()]
 <li>创建time对象，date对象和datetime对象</li>
 </ul>
 <div class="highlight"><pre><span></span>datetime.time(16,26,56)
-datetime.date(2017,20,20)
-datetime.datetime(2017,20,20)
-</pre></div>
-
-
-<ul>
-<li>当前时间</li>
-</ul>
-<div class="highlight"><pre><span></span>datetime.time.now()
-datetime.date.today()
-datetime.datetime.now()
-</pre></div>
-
-
-<ul>
-<li>时间单位的转化</li>
-</ul>
-<div class="highlight"><pre><span></span>datetime.date <span class="o">&lt;-</span> datetime.datetime.date<span class="p">()</span>
-datetime.time <span class="o">&lt;-</span> datetime.datetime.time<span class="p">()</span>
-datetime.datetime <span class="o">&lt;-</span> <span class="p">[</span>datetime.datetime<span class="p">](</span>object<span class="p">)</span><span class="m">.</span>combine<span class="p">(</span>datetime.date<span class="p">(</span>obj<span class="p">),</span>datetime.time<span class="p">(</span>obj<span class="p">))</span>
-</pre></div>
-
-
-<ul>
-<li>时间的运算和平移</li>
-</ul>
-<div class="highlight"><pre><span></span>datetime2 = datetime +_ timedelta
-timedelta = datetime _ datetime
-</pre></div>
-
-
-<ul>
-<li>字符时间的创建与打印<br>
-创建：</li>
-</ul>
-<div class="highlight"><pre><span></span>datetime.datetime.strptime(&#39;2017-09-09&#39;,&#39;%Y-%m-%d&#39;)
-</pre></div>
-
-
-<p>打印：</p>
-<div class="highlight"><pre><span></span>[datetime.datetime](object).strftime()
-</pre></div>
-
-
-<h3>Collections</h3>
-<ul>
-<li>
-<p>ChainMap<br>
-其结构类似于作用域链，<code>pylookup = ChainMap(locals(), globals(), vars(builtins))</code>
-对象属性和方法：<code>maps -&gt; [{},{},{}];new_child(m=None)-&gt;继承原有作用域创建新的ChainMap结构;parents-&gt;maps[1:]</code>;</p>
-</li>
-<li>
-<p>Counter
-<code>Counter([iterable-or-mapping])</code>
-用于数量统计和对相同key的value做加法运算
-<code>elements()-&gt;[i*counter[i](这里表示个数) for i in counter]</code></p>
-</li>
-<li>
-<p>deque
-双向队列，线程安全</p>
-</li>
-<li>
-<p>defaultdict</p>
-</li>
-</ul>
-<div class="highlight"><pre><span></span>a = defaultdict(list)
-b = defaultdict(set)
-c = defaultdict(int)
-</pre></div>
-
-
-<ul>
-<li>namedtuple （构建简单的属性对象）
-a = namedtuple('objname',['a','b','c'])</li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+datetime.date(2017 …</pre></div>
+                <a class="readmore" href="/python-apiyue-du-bi-ji-1.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
