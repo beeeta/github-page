@@ -21,90 +21,91 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/pythonshi-yong-lei-he-han-shu-chuang-jian-die-dai-qi-de-ji-chong-fang-fa.html">python使用类和函数创建迭代器的几种方法</a></h1>
+                    <h1 class="entry-title"><a href="/wtfbiao-dan-chu-li.html">wtf表单处理</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2017-11-30T00:00:00+01:00">
-                Published: 周四 30 十一月 2017
+        <abbr class="published" title="2017-12-03T00:00:00+01:00">
+                Published: 日 03 十二月 2017
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/betalun.html">betalun</a>
         </address>
-<p>In <a href="/category/python.html">python</a>.</p>
+<p>In <a href="/category/python_web.html">python_web</a>.</p>
 
-</footer><!-- /.post-info --><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">将类和函数改造为迭代器的方法</span>
+</footer><!-- /.post-info --><h3>使用方法</h3>
+<ul>
+<li>创建表单</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask_wtf</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span>
+<span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">DataRequired</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c1"># 1.实现了__iter__,__next__方法的类</span>
-<span class="k">class</span> <span class="nc">Iter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span><span class="mi">4</span> <span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">StopIteration</span>
-        <span class="k">else</span> <span class="p">:</span>
-            <span class="n">rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">return</span> <span class="n">rs</span>
-
-
-<span class="c1"># 2.使用原生的迭代器</span>
-<span class="k">def</span> <span class="nf">iterer</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-        <span class="k">yield</span>  <span class="n">i</span>
-
-<span class="c1"># 3.将闭包函数改造为迭代器iter(为什么要是闭包函数，因为每次调用有状态变化)</span>
-<span class="k">def</span> <span class="nf">outer</span><span class="p">():</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
-        <span class="n">nonlocal</span> <span class="n">a</span>
-        <span class="k">if</span> <span class="n">a</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
-            <span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">return</span> <span class="n">b</span>
-    <span class="k">return</span> <span class="n">inner</span>
-
-<span class="n">out</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">outer</span><span class="p">(),</span><span class="bp">None</span><span class="p">)</span>
-
-<span class="c1"># 4.自定义迭代器，在__iter__中返回生成器</span>
-<span class="k">class</span> <span class="nc">Iter2</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">iterer</span><span class="p">()</span>
-
-<span class="c1"># Test</span>
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">iter1</span> <span class="o">=</span> <span class="n">Iter</span><span class="p">()</span>
-    <span class="n">iter2</span> <span class="o">=</span> <span class="n">iterer</span><span class="p">()</span>
-    <span class="n">iter3</span> <span class="o">=</span> <span class="n">out</span>
-    <span class="n">iter4</span> <span class="o">=</span> <span class="n">Iter2</span><span class="p">()</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iter1</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter1 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;---------&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">iter2</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter2 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
-
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;---------&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">iter3</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter3 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
-
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;--------&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">iter4</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;iter4 print:{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+<span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">upload</span> <span class="o">=</span> <span class="n">FileField</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">FileRequired</span><span class="p">(),</span>
+        <span class="n">FileAllowed</span><span class="p">([</span><span class="s1">&#39;jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;png&#39;</span><span class="p">],</span> <span class="s1">&#39;Images only!&#39;</span><span class="p">)</span>
+    <span class="p">])</span>
 </pre></div>
 
 
-<h2>四种方式执行的结果相同：</h2>
-<p><img alt="执行结果图" src="/images/result2.png"></p>                </article>
+<ul>
+<li>生成表单</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;login.html&#39;</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="n">MyForm</span><span class="p">())</span>
+</pre></div>
+
+
+<ul>
+<li>定义表单字段</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nt">&lt;form&gt;</span>
+
+<span class="cp">{{</span><span class="nv">form.hidden_tag</span><span class="o">()</span><span class="cp">}}</span> # 这里是csrf_token字段
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">text</span> <span class="na">name=</span><span class="s">&#39;username&#39;</span><span class="nt">/&gt;</span> # username 对应MyForm对象中的字段，在提交表单时，值会进行自动绑定
+
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+
+<ul>
+<li>处理提交的表单</li>
+</ul>
+<div class="highlight"><pre><span></span>@app.route(&#39;/submit&#39;, methods=(&#39;GET&#39;, &#39;POST&#39;))
+def submit():
+    form = MyForm()
+    if form.validate_on_submit():
+    # 处理表单信息 form.data
+        return redirect(&#39;/success&#39;)
+    return render_template(&#39;submit.html&#39;, form=form)
+</pre></div>
+
+
+<ul>
+<li>ajax的csrf消息头
+在页面的meta或者脚本中初始化csrf_token的值：</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;csrf-token&quot;</span> <span class="na">content=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">csrf_token</span><span class="o">()</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;script</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+    var csrftoken = &quot;<span class="cp">{{</span> <span class="nv">csrf_token</span><span class="o">()</span> <span class="cp">}}</span>&quot;
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+
+<p>然后在ajax请求中设置共用消息头：</p>
+<div class="highlight"><pre><span></span>var csrftoken = $(&#39;meta[name=csrf-token]&#39;).attr(&#39;content&#39;)
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+            xhr.setRequestHeader(&quot;X-CSRFToken&quot;, csrftoken)
+        }
+    }
+})
+</pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -120,7 +121,7 @@
                 <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-11-30T00:00:00+01:00">
-                Published: 周四 30 十一月 2017
+                Published: 四 30 十一月 2017
         </abbr>
 
         <address class="vcard author">
@@ -164,7 +165,7 @@
                 <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-11-23T00:00:00+01:00">
-                Published: 周四 23 十一月 2017
+                Published: 四 23 十一月 2017
         </abbr>
 
         <address class="vcard author">
@@ -212,6 +213,55 @@ dict --&gt;   [(),(),()]
 <div class="highlight"><pre><span></span>datetime.time(16,26,56)
 datetime.date(2017 …</pre></div>
                 <a class="readmore" href="/python-apiyue-du-bi-ji-1.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/pythonshi-yong-lei-he-han-shu-chuang-jian-die-dai-qi-de-ji-chong-fang-fa.html" rel="bookmark"
+                           title="Permalink to python使用类和函数创建迭代器的几种方法">python使用类和函数创建迭代器的几种方法</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-11-03T00:00:00+01:00">
+                Published: 五 03 十一月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+
+</footer><!-- /.post-info -->                <div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">将类和函数改造为迭代器的方法</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># 1.实现了__iter__,__next__方法的类</span>
+<span class="k">class</span> <span class="nc">Iter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span><span class="mi">4</span> <span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">rs</span>
+
+
+<span class="c1"># 2.使用原生的迭代器</span>
+<span class="k">def</span> <span class="nf">iterer</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="k">yield</span>  <span class="n">i</span>
+
+<span class="c1"># 3.将闭包函数改造为迭代器iter(为什么要是闭包函数 …</span></pre></div>
+                <a class="readmore" href="/pythonshi-yong-lei-he-han-shu-chuang-jian-die-dai-qi-de-ji-chong-fang-fa.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
