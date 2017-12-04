@@ -7,10 +7,7 @@ Date: 2017-12
 > object是一切对象的父类型，那么type与object之间的关系是什么呢？
 
 ![type和object的描述]({filename}/images/python_type_object.png)  
-
-![type和object的描述]({filename}/images/type_object_rel1.png)  
-
-![type和object的描述]({filename}/images/type_object_rel2.png)  
+ 
 
 **解释1**  
 ![type和object的解释]({filename}/images/explain1.png)  
