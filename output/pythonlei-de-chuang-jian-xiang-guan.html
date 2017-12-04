@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
         <meta charset="utf-8" />
-        <title>python blog 阅读参考</title>
+        <title>Python类的创建相关</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -22,8 +22,8 @@
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/python-blog-yue-du-can-kao.html" rel="bookmark"
-           title="Permalink to python blog 阅读参考">python blog 阅读参考</a></h1>
+        <a href="/pythonlei-de-chuang-jian-xiang-guan.html" rel="bookmark"
+           title="Permalink to Python类的创建相关">Python类的创建相关</a></h1>
     </header>
 
     <div class="entry-content">
@@ -37,8 +37,24 @@
         </address>
 <p>In <a href="/category/python.html">python</a>.</p>
 
-</footer><!-- /.post-info -->      <h3>属性的访问</h3>
-<p><a href="http://www.cnblogs.com/xybaby/p/6270551.html">python属性查找 深入理解</a></p>
+</footer><!-- /.post-info -->      <h3>对象从何处来</h3>
+<blockquote>
+<p>type是一切类的创建者(type is the class that is instanced to get classes)，而python中一切皆为对象，
+object是一切对象的父类型，那么type与object之间的关系是什么呢？</p>
+</blockquote>
+<p><img alt="type和object的描述" src="/images/python_type_object.png">  </p>
+<p><img alt="type和object的描述" src="/images/type_object_rel1.png">  </p>
+<p><img alt="type和object的描述" src="/images/type_object_rel2.png">  </p>
+<p><strong>解释1</strong><br>
+<img alt="type和object的解释" src="/images/explain1.png">  </p>
+<p><strong>解释2</strong><br>
+两者就是鸡与鸡蛋之间的关系，object是鸡，type是蛋，鸡生鸡蛋，但鸡终归由蛋而来。
+<img alt="type和object的解释" src="/images/chick_egg.png"></p>
+<blockquote>
+<p>参考资料:
+<a href="https://stackoverflow.com/questions/31995472/python-3-how-can-object-be-instance-of-type">refer1</a>
+<a href="https://stackoverflow.com/questions/36339553/relationship-between-between-type-and-object-in-python">refer2</a></p>
+</blockquote>
     </div><!-- /.entry-content -->
 
   </article>
