@@ -21,10 +21,10 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/monkey-patch.html">monkey patch</a></h1>
+                    <h1 class="entry-title"><a href="/duo-xian-cheng-yu-duo-jin-cheng.html">多线程与多进程</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-06T00:00:00+01:00">
+                Published: 三 06 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -32,7 +32,163 @@
         </address>
 <p>In <a href="/category/python.html">python</a>.</p>
 
-</footer><!-- /.post-info --><h3>基础</h3>
+</footer><!-- /.post-info --><blockquote>
+<p>主要关注创建进程线程的方法，进程线程之间的通信同步方法，Queue,进程池线程池</p>
+</blockquote>
+<h3>多线程和多进程的创建</h3>
+<p>两者的创建方式类似的，导入的包不同，都可以通过继承和挂载线程方法来实现</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
+
+<span class="k">class</span> <span class="nc">Worker</span><span class="p">(</span><span class="n">Thread</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;do worker job&#39;</span><span class="p">)</span>
+
+<span class="n">worker</span> <span class="o">=</span> <span class="n">Worker</span><span class="p">()</span>
+<span class="n">worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">jobfunc</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="c1"># 这种方式更方便</span>
+<span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>调用命令行命令</h3>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span><span class="p">,</span><span class="n">Popen</span>
+<span class="n">call</span><span class="p">(</span><span class="s1">&#39;ls -al&#39;</span><span class="p">)</span>
+<span class="n">call</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span><span class="s1">&#39;-al&#39;</span><span class="p">],</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">ret</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span><span class="s1">&#39;-al&#39;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>线程之间的同步机制</h3>
+<ul>
+<li>Lock</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
+<span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+<span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="c1"># do something</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+</pre></div>
+
+
+<ul>
+<li>RLock</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">RLock</span>
+<span class="n">lock</span> <span class="o">=</span> <span class="n">RLock</span><span class="p">()</span>
+<span class="c1"># 对多个代码段加锁，防死锁的一种方式</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="c1"># do something</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+</pre></div>
+
+
+<ul>
+<li>Semaphore
+信号量，控制获取资源的线程数量</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">sema</span> <span class="o">=</span> <span class="n">Semaphore</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">sema</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+    <span class="c1"># 只能由三个线程同时进来</span>
+</pre></div>
+
+
+<ul>
+<li>Event</li>
+</ul>
+<div class="highlight"><pre><span></span>e = Event()
+e.wait()
+
+e.set() # 在e.set()方法未执行之前e.wait()方法会被阻塞
+</pre></div>
+
+
+<ul>
+<li>三种Queue</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">Queue</span><span class="p">,</span><span class="n">deque</span>
+
+<span class="n">PriorityQueue</span>
+
+<span class="k">class</span> <span class="nc">PriorityQueue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">priority</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="p">:</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">priority</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span><span class="n">item</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="p">:</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;wait...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">ret</span>
+</pre></div>
+
+
+<h3>线程池进程池</h3>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span><span class="n">ProcessPoolExecutor</span>
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="c1"># 单独提交任务</span>
+    <span class="n">fut</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">fib</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">fut</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="c1"># 或使用map函数</span>
+    <span class="k">with</span> <span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+       <span class="n">res</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fib</span><span class="p">,</span> <span class="p">[</span><span class="mi">35</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+       <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+           <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/monkey-patch.html" rel="bookmark"
+                           title="Permalink to monkey patch">monkey patch</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-06T00:00:00+01:00">
+                Published: 三 06 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+
+</footer><!-- /.post-info -->                <h3>基础</h3>
 <blockquote>
 <p>python的一种编程技巧。之后引入的包可以改变之前引入包的方法，主要可用于对第三方包进行定制。例子可以参考<a href="https://github.com/reclosedev/requests-cache.git">requests-cache</a>和<a href="https://github.com/gevent/gevent.git">gevent</a>源码</p>
 </blockquote>
@@ -74,15 +230,10 @@
 模块多次在不同地方导入时，操作的是同一个模块对象</p>
 <ul>
 <li>深入一些的技巧<blockquote>
-<p>借助python的内省和魔法方法做的更pythonic</p>
-</blockquote>
-</li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<p>借助python的内省和魔法方法做的更pythonic …</p></blockquote></li></ul>
+                <a class="readmore" href="/monkey-patch.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -92,8 +243,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-06T00:00:00+01:00">
+                Published: 三 06 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -115,8 +266,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-06T00:00:00+01:00">
+                Published: 三 06 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -152,8 +303,8 @@ object是一切对象的父类型，那么type与object之间的关系是什么�
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-06T00:00:00+01:00">
+                Published: 三 06 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -206,7 +357,7 @@ object是一切对象的父类型，那么type与object之间的关系是什么�
                 <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-11-30T00:00:00+01:00">
-                Published: 周四 30 十一月 2017
+                Published: 四 30 十一月 2017
         </abbr>
 
         <address class="vcard author">
@@ -250,7 +401,7 @@ object是一切对象的父类型，那么type与object之间的关系是什么�
                 <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-11-23T00:00:00+01:00">
-                Published: 周四 23 十一月 2017
+                Published: 四 23 十一月 2017
         </abbr>
 
         <address class="vcard author">
@@ -309,8 +460,8 @@ datetime.date(2017 …</pre></div>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-11-05T00:00:00+01:00">
-                Published: 周日 05 十一月 2017
+        <abbr class="published" title="2017-11-06T00:00:00+01:00">
+                Published: 一 06 十一月 2017
         </abbr>
 
         <address class="vcard author">

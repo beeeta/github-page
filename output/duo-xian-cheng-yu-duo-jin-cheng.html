@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
         <meta charset="utf-8" />
-        <title>Beeeta Blog - python</title>
+        <title>多线程与多进程</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -18,10 +18,15 @@
                     <li><a href="/category/python_web.html">python_web</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/duo-xian-cheng-yu-duo-jin-cheng.html" rel="bookmark"
+           title="Permalink to 多线程与多进程">多线程与多进程</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/duo-xian-cheng-yu-duo-jin-cheng.html">多线程与多进程</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-12-06T00:00:00+01:00">
                 Published: 三 06 十二月 2017
@@ -32,7 +37,7 @@
         </address>
 <p>In <a href="/category/python.html">python</a>.</p>
 
-</footer><!-- /.post-info --><blockquote>
+</footer><!-- /.post-info -->      <blockquote>
 <p>主要关注创建进程线程的方法，进程线程之间的通信同步方法，Queue,进程池线程池</p>
 </blockquote>
 <h3>多线程和多进程的创建</h3>
@@ -164,247 +169,11 @@ e.set() # 在e.set()方法未执行之前e.wait()方法会被阻塞
        <span class="n">res</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fib</span><span class="p">,</span> <span class="p">[</span><span class="mi">35</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
            <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/monkey-patch.html" rel="bookmark"
-                           title="Permalink to monkey patch">monkey patch</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-12-06T00:00:00+01:00">
-                Published: 三 06 十二月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
-        </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-
-</footer><!-- /.post-info -->                <h3>基础</h3>
-<blockquote>
-<p>python的一种编程技巧。之后引入的包可以改变之前引入包的方法，主要可用于对第三方包进行定制。例子可以参考<a href="https://github.com/reclosedev/requests-cache.git">requests-cache</a>和<a href="https://github.com/gevent/gevent.git">gevent</a>源码</p>
-</blockquote>
-<ul>
-<li>一个简单的例子</li>
-</ul>
-<p>test.py</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">test2</span>
-<span class="kn">import</span> <span class="nn">test3</span>
-
-<span class="n">test2</span><span class="o">.</span><span class="n">abc</span><span class="p">()</span>
 </pre></div>
+    </div><!-- /.entry-content -->
 
-
-<p>test2.py</p>
-<div class="highlight"><pre><span></span>def abc():
-    print(&#39;test2 abc&#39;)
-</pre></div>
-
-
-<p>test3.py</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">test2</span>
-
-<span class="c1"># old_abc = test2.abc</span>
-
-<span class="n">test2</span><span class="o">.</span><span class="n">abc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;monkeyed abc&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>结果打印为：</p>
-<div class="highlight"><pre><span></span><span class="n">monkeyed</span> <span class="n">abc</span>
-</pre></div>
-
-
-<ul>
-<li>实现的原理  </li>
-</ul>
-<p>一个模块中导入的其他模块，内置模块及其他模块中依赖的模块，都通过这个模块的命名空间来维护，所有的模块实质上只会导入一次，
-模块多次在不同地方导入时，操作的是同一个模块对象</p>
-<ul>
-<li>深入一些的技巧<blockquote>
-<p>借助python的内省和魔法方法做的更pythonic …</p></blockquote></li></ul>
-                <a class="readmore" href="/monkey-patch.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/python-blog-yue-du-can-kao.html" rel="bookmark"
-                           title="Permalink to python blog 阅读参考">python blog 阅读参考</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-12-06T00:00:00+01:00">
-                Published: 三 06 十二月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
-        </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-
-</footer><!-- /.post-info -->                <h3>属性的访问</h3>
-<p><a href="http://www.cnblogs.com/xybaby/p/6270551.html">python属性查找 深入理解</a></p>
-                <a class="readmore" href="/python-blog-yue-du-can-kao.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/pythonde-lei-yu-dui-xiang.html" rel="bookmark"
-                           title="Permalink to Python的类与对象">Python的类与对象</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-12-06T00:00:00+01:00">
-                Published: 三 06 十二月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
-        </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-
-</footer><!-- /.post-info -->                <h3>对象从何处来</h3>
-<blockquote>
-<p>type是一切类的创建者(type is the class that is instanced to get classes)，而python中一切皆为对象，
-object是一切对象的父类型，那么type与object之间的关系是什么呢？</p>
-</blockquote>
-<p><img alt="type和object的描述" src="/images/python_type_object.png">  </p>
-<p><strong>解释1</strong><br>
-<img alt="type和object的解释" src="/images/explain1.png">  </p>
-<p><strong>解释2</strong><br>
-两者就是鸡与鸡蛋之间的关系，object是鸡，type是蛋
-<img alt="type和object的解释" src="/images/chick_egg.png"></p>
-<blockquote>
-<p>参考资料:
-<a href="https://stackoverflow.com/questions/31995472/python-3-how-can-object-be-instance-of-type">refer1</a>
-<a href="https://stackoverflow.com/questions/36339553/relationship-between-between-type-and-object-in-python">refer2</a></p>
-</blockquote>
-                <a class="readmore" href="/pythonde-lei-yu-dui-xiang.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/python-apiyue-du-bi-ji-1.html" rel="bookmark"
-                           title="Permalink to python api阅读笔记1">python api阅读笔记1</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-23T00:00:00+01:00">
-                Published: 四 23 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
-        </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-
-</footer><!-- /.post-info -->                <h3>基本数据类型的转换</h3>
-<ul>
-<li>数值 --&gt; 字符串(将数值转为特定进制的字符串形式)  </li>
-</ul>
-<div class="highlight"><pre><span></span>bin()
-oct()
-hex()
-</pre></div>
-
-
-<ul>
-<li>字符串 --&gt; 数字</li>
-</ul>
-<div class="highlight"><pre><span></span>int(&#39;[0b,0o,0x]xxx&#39;,[2,8,16])
-</pre></div>
-
-
-<ul>
-<li>集合类型之间的转换  </li>
-</ul>
-<div class="highlight"><pre><span></span>list  --&gt;   [(1,2),(2,3),(3,4)] 
-     enumerate()
-     zip()
-dict --&gt;   [(),(),()]
-    list(dict.items())
-
-[(),(),()]  --&gt; dict
-    {i:j for i,j in [(),(),()]}
-</pre></div>
-
-
-<hr>
-<h3>python中的时间</h3>
-<h4>datetime</h4>
-<ul>
-<li>创建time对象，date对象和datetime对象</li>
-</ul>
-<div class="highlight"><pre><span></span>datetime.time(16,26,56)
-datetime.date(2017 …</pre></div>
-                <a class="readmore" href="/python-apiyue-du-bi-ji-1.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/pythonshi-yong-lei-he-han-shu-chuang-jian-die-dai-qi-de-ji-chong-fang-fa.html" rel="bookmark"
-                           title="Permalink to python使用类和函数创建迭代器的几种方法">python使用类和函数创建迭代器的几种方法</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-11-06T00:00:00+01:00">
-                Published: 一 06 十一月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
-        </address>
-<p>In <a href="/category/python.html">python</a>.</p>
-
-</footer><!-- /.post-info -->                <div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">将类和函数改造为迭代器的方法</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c1"># 1.实现了__iter__,__next__方法的类</span>
-<span class="k">class</span> <span class="nc">Iter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span><span class="mi">4</span> <span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">StopIteration</span>
-        <span class="k">else</span> <span class="p">:</span>
-            <span class="n">rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">age</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">return</span> <span class="n">rs</span>
-
-
-<span class="c1"># 2.使用原生的迭代器</span>
-<span class="k">def</span> <span class="nf">iterer</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-        <span class="k">yield</span>  <span class="n">i</span>
-
-<span class="c1"># 3.将闭包函数改造为迭代器iter(为什么要是闭包函数 …</span></pre></div>
-                <a class="readmore" href="/pythonshi-yong-lei-he-han-shu-chuang-jian-die-dai-qi-de-ji-chong-fang-fa.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
         </section><!-- /#extras -->
 
