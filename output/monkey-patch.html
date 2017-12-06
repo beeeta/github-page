@@ -28,8 +28,8 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-04T00:00:00+01:00">
-                Published: 周一 04 十二月 2017
+        <abbr class="published" title="2017-12-05T00:00:00+01:00">
+                Published: 周二 05 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -68,10 +68,15 @@
 
 
 <p>结果打印为：</p>
-<div class="highlight"><pre><span></span>monkeyed abc
+<div class="highlight"><pre><span></span><span class="n">monkeyed</span> <span class="n">abc</span>
 </pre></div>
 
 
+<ul>
+<li>实现的原理  </li>
+</ul>
+<p>一个模块中导入的其他模块，内置模块及其他模块中依赖的模块，都通过这个模块的命名空间来维护，所有的模块实质上只会导入一次，
+模块多次在不同地方导入时，操作的是同一个模块对象</p>
 <ul>
 <li>深入一些的技巧<blockquote>
 <p>借助python的内省和魔法方法做的更pythonic</p>
