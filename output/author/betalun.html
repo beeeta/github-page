@@ -22,7 +22,163 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/keras.html">Keras</a></h1>
+                    <h1 class="entry-title"><a href="/duo-xian-cheng-yu-duo-jin-cheng.html">多线程与多进程</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/python.html">python</a>.</p>
+
+</footer><!-- /.post-info --><blockquote>
+<p>主要关注创建进程线程的方法，进程线程之间的通信同步方法，Queue,进程池线程池</p>
+</blockquote>
+<h3>多线程和多进程的创建</h3>
+<p>两者的创建方式类似的，导入的包不同，都可以通过继承和挂载线程方法来实现</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span>
+
+<span class="k">class</span> <span class="nc">Worker</span><span class="p">(</span><span class="n">Thread</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;do worker job&#39;</span><span class="p">)</span>
+
+<span class="n">worker</span> <span class="o">=</span> <span class="n">Worker</span><span class="p">()</span>
+<span class="n">worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">jobfunc</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span> <span class="c1"># 这种方式更方便</span>
+<span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>调用命令行命令</h3>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span><span class="p">,</span><span class="n">Popen</span>
+<span class="n">call</span><span class="p">(</span><span class="s1">&#39;ls -al&#39;</span><span class="p">)</span>
+<span class="n">call</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span><span class="s1">&#39;-al&#39;</span><span class="p">],</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">ret</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span><span class="s1">&#39;-al&#39;</span><span class="p">],</span><span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>线程之间的同步机制</h3>
+<ul>
+<li>Lock</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Lock</span>
+<span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+<span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="c1"># do something</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+</pre></div>
+
+
+<ul>
+<li>RLock</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">RLock</span>
+<span class="n">lock</span> <span class="o">=</span> <span class="n">RLock</span><span class="p">()</span>
+<span class="c1"># 对多个代码段加锁，防死锁的一种方式</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="c1"># do something</span>
+<span class="n">lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+</pre></div>
+
+
+<ul>
+<li>Semaphore
+信号量，控制获取资源的线程数量</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">sema</span> <span class="o">=</span> <span class="n">Semaphore</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">sema</span><span class="p">:</span>
+    <span class="c1"># do something</span>
+    <span class="c1"># 只能由三个线程同时进来</span>
+</pre></div>
+
+
+<ul>
+<li>Event</li>
+</ul>
+<div class="highlight"><pre><span></span>e = Event()
+e.wait()
+
+e.set() # 在e.set()方法未执行之前e.wait()方法会被阻塞
+</pre></div>
+
+
+<ul>
+<li>三种Queue</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">Queue</span><span class="p">,</span><span class="n">deque</span>
+
+<span class="n">PriorityQueue</span>
+
+<span class="k">class</span> <span class="nc">PriorityQueue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">priority</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="p">:</span>
+            <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">priority</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">,</span><span class="n">item</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="p">:</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;wait...&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cv</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_q</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">ret</span>
+</pre></div>
+
+
+<h3>线程池进程池</h3>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span><span class="n">ProcessPoolExecutor</span>
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="c1"># 单独提交任务</span>
+    <span class="n">fut</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">fib</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">fut</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="c1"># 或使用map函数</span>
+    <span class="k">with</span> <span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+       <span class="n">res</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fib</span><span class="p">,</span> <span class="p">[</span><span class="mi">35</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+       <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+           <span class="k">print</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/keras.html" rel="bookmark"
+                           title="Permalink to Keras">Keras</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-12-21T00:00:00+01:00">
                 Published: 周四 21 十二月 2017
@@ -33,7 +189,7 @@
         </address>
 <p>In <a href="/category/ml.html">ML</a>.</p>
 
-</footer><!-- /.post-info --><blockquote>
+</footer><!-- /.post-info -->                <blockquote>
 <p>keras简化神经网络模型构建的过程</p>
 </blockquote>
 <h2>用keras进行数据训练和验证的主要步骤</h2>
@@ -74,38 +230,10 @@
 <h2>使用中的注意事项</h2>
 <p>1.理解机器学习及深度学习中的各种概念。比如：有监督学习，无监督学习
 分类，聚类，回归；神经元模型，多层感知器，BP算法；目标函数（损失函数），
-激活函数，梯度下降发；全连接网络，卷积神经网络，递归神经网络；训练集，测试集，
-交叉验证，欠拟合，过拟合；数据规范化等
-2.理解深度学习中各种模型和操作的特点，作用。比如cnn,rnn,lstm,dropout,pool等</p>
-<h2>一些梳理</h2>
-<h3>activation的分类</h3>
-<div class="highlight"><pre><span></span>relu
-sigmoid
-softmax
-</pre></div>
-
-
-<h3>optimizer的分类</h3>
-<div class="highlight"><pre><span></span>rmsprop
-sdg
-</pre></div>
-
-
-<h3>loss的分类</h3>
-<div class="highlight"><pre><span></span>binary_crossentropy
-categorical_crossentropy
-mse
-</pre></div>
-
-
-<h3>metrics的分类</h3>
-<div class="highlight"><pre><span></span>accuracy
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+激活函数，梯度下降发；全连接网络 …</p>
+                <a class="readmore" href="/keras.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
