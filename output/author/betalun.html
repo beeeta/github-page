@@ -14,6 +14,7 @@
         <header id="banner" class="body">
                 <h1><a href="/">Beeeta Blog </a></h1>
                 <nav><ul>
+                    <li><a href="/category/ml.html">ML</a></li>
                     <li><a href="/category/python.html">python</a></li>
                     <li><a href="/category/python_web.html">python_web</a></li>
                 </ul></nav>
@@ -21,10 +22,101 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/monkey-patch.html">monkey patch</a></h1>
+                    <h1 class="entry-title"><a href="/keras.html">Keras</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/ml.html">ML</a>.</p>
+
+</footer><!-- /.post-info --><blockquote>
+<p>keras简化神经网络模型构建的过程</p>
+</blockquote>
+<h2>用keras进行数据训练和验证的主要步骤</h2>
+<h3>搭结构</h3>
+<div class="highlight"><pre><span></span>model---layers
+      --layers
+      --layers
+      --layers
+</pre></div>
+
+
+<h3>编译</h3>
+<div class="highlight"><pre><span></span><span class="na">.compile</span><span class="p">(</span>
+      <span class="nf">optimizer</span><span class="err">=优化器</span><span class="p">,</span>
+      <span class="nf">loss</span><span class="err">=损失函数</span><span class="p">,</span>
+      <span class="nf">metrics</span><span class="err">=度量</span>
+<span class="err">)</span>
+</pre></div>
+
+
+<h3>数据训练</h3>
+<div class="highlight"><pre><span></span><span class="na">.fit</span><span class="p">(</span>
+      <span class="err">[</span><span class="nf">data</span><span class="err">=</span><span class="p">]</span><span class="err">训练输入</span><span class="p">,</span>
+      <span class="err">[</span><span class="nf">labels</span><span class="err">=</span><span class="p">]</span><span class="err">训练标记</span><span class="p">,</span>
+      <span class="nf">epochs</span><span class="err">=数据轮循次数</span><span class="p">,</span>
+      <span class="nf">batch_size</span><span class="err">=数据组大小</span>
+<span class="err">)</span>
+</pre></div>
+
+
+<h3>验证</h3>
+<p>.evaluate(
+      [data=]训练输入
+      [labels=]训练标记
+      batch_size=数据组大小
+)</p>
+<hr>
+<h2>使用中的注意事项</h2>
+<p>1.理解机器学习及深度学习中的各种概念。比如：有监督学习，无监督学习
+分类，聚类，回归；神经元模型，多层感知器，BP算法；目标函数（损失函数），
+激活函数，梯度下降发；全连接网络，卷积神经网络，递归神经网络；训练集，测试集，
+交叉验证，欠拟合，过拟合；数据规范化等
+2.理解深度学习中各种模型和操作的特点，作用。比如cnn,rnn,lstm,dropout,pool等</p>
+<h2>一些梳理</h2>
+<h3>activation的分类</h3>
+<div class="highlight"><pre><span></span>relu
+sigmoid
+softmax
+</pre></div>
+
+
+<h3>optimizer的分类</h3>
+<div class="highlight"><pre><span></span>rmsprop
+sdg
+</pre></div>
+
+
+<h3>loss的分类</h3>
+<div class="highlight"><pre><span></span>binary_crossentropy
+categorical_crossentropy
+mse
+</pre></div>
+
+
+<h3>metrics的分类</h3>
+<div class="highlight"><pre><span></span>accuracy
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/monkey-patch.html" rel="bookmark"
+                           title="Permalink to monkey patch">monkey patch</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -32,7 +124,7 @@
         </address>
 <p>In <a href="/category/python.html">python</a>.</p>
 
-</footer><!-- /.post-info --><h3>基础</h3>
+</footer><!-- /.post-info -->                <h3>基础</h3>
 <blockquote>
 <p>python的一种编程技巧。之后引入的包可以改变之前引入包的方法，主要可用于对第三方包进行定制。例子可以参考<a href="https://github.com/reclosedev/requests-cache.git">requests-cache</a>和<a href="https://github.com/gevent/gevent.git">gevent</a>源码</p>
 </blockquote>
@@ -74,15 +166,10 @@
 模块多次在不同地方导入时，操作的是同一个模块对象</p>
 <ul>
 <li>深入一些的技巧<blockquote>
-<p>借助python的内省和魔法方法做的更pythonic</p>
-</blockquote>
-</li>
-</ul>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<p>借助python的内省和魔法方法做的更pythonic …</p></blockquote></li></ul>
+                <a class="readmore" href="/monkey-patch.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -92,8 +179,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -115,8 +202,8 @@
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -152,8 +239,8 @@ object是一切对象的父类型，那么type与object之间的关系是什么�
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-12-05T00:00:00+01:00">
-                Published: 周二 05 十二月 2017
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
         </abbr>
 
         <address class="vcard author">
@@ -309,8 +396,8 @@ datetime.date(2017 …</pre></div>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2017-11-05T00:00:00+01:00">
-                Published: 周日 05 十一月 2017
+        <abbr class="published" title="2017-11-21T00:00:00+01:00">
+                Published: 周二 21 十一月 2017
         </abbr>
 
         <address class="vcard author">

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+        <meta charset="utf-8" />
+        <title>Beeeta Blog - ML</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Beeeta Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/ml.html">ML</a></li>
+                    <li><a href="/category/python.html">python</a></li>
+                    <li><a href="/category/python_web.html">python_web</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/keras.html">Keras</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-21T00:00:00+01:00">
+                Published: 周四 21 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/betalun.html">betalun</a>
+        </address>
+<p>In <a href="/category/ml.html">ML</a>.</p>
+
+</footer><!-- /.post-info --><blockquote>
+<p>keras简化神经网络模型构建的过程</p>
+</blockquote>
+<h2>用keras进行数据训练和验证的主要步骤</h2>
+<h3>搭结构</h3>
+<div class="highlight"><pre><span></span>model---layers
+      --layers
+      --layers
+      --layers
+</pre></div>
+
+
+<h3>编译</h3>
+<div class="highlight"><pre><span></span><span class="na">.compile</span><span class="p">(</span>
+      <span class="nf">optimizer</span><span class="err">=优化器</span><span class="p">,</span>
+      <span class="nf">loss</span><span class="err">=损失函数</span><span class="p">,</span>
+      <span class="nf">metrics</span><span class="err">=度量</span>
+<span class="err">)</span>
+</pre></div>
+
+
+<h3>数据训练</h3>
+<div class="highlight"><pre><span></span><span class="na">.fit</span><span class="p">(</span>
+      <span class="err">[</span><span class="nf">data</span><span class="err">=</span><span class="p">]</span><span class="err">训练输入</span><span class="p">,</span>
+      <span class="err">[</span><span class="nf">labels</span><span class="err">=</span><span class="p">]</span><span class="err">训练标记</span><span class="p">,</span>
+      <span class="nf">epochs</span><span class="err">=数据轮循次数</span><span class="p">,</span>
+      <span class="nf">batch_size</span><span class="err">=数据组大小</span>
+<span class="err">)</span>
+</pre></div>
+
+
+<h3>验证</h3>
+<p>.evaluate(
+      [data=]训练输入
+      [labels=]训练标记
+      batch_size=数据组大小
+)</p>
+<hr>
+<h2>使用中的注意事项</h2>
+<p>1.理解机器学习及深度学习中的各种概念。比如：有监督学习，无监督学习
+分类，聚类，回归；神经元模型，多层感知器，BP算法；目标函数（损失函数），
+激活函数，梯度下降发；全连接网络，卷积神经网络，递归神经网络；训练集，测试集，
+交叉验证，欠拟合，过拟合；数据规范化等
+2.理解深度学习中各种模型和操作的特点，作用。比如cnn,rnn,lstm,dropout,pool等</p>
+<h2>一些梳理</h2>
+<h3>activation的分类</h3>
+<div class="highlight"><pre><span></span>relu
+sigmoid
+softmax
+</pre></div>
+
+
+<h3>optimizer的分类</h3>
+<div class="highlight"><pre><span></span>rmsprop
+sdg
+</pre></div>
+
+
+<h3>loss的分类</h3>
+<div class="highlight"><pre><span></span>binary_crossentropy
+categorical_crossentropy
+mse
+</pre></div>
+
+
+<h3>metrics的分类</h3>
+<div class="highlight"><pre><span></span>accuracy
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
