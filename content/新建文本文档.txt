@@ -1,0 +1,7 @@
+Title: metaclass
+Category: python
+Date: 2018-01
+
+# metaclass 的使用  
+
+主要参考:[metaclass理解与使用](http://mp.weixin.qq.com/s/Le-rmRmRf5-8TBdz93I0NQ)
